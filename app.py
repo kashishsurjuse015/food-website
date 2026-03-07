@@ -26,10 +26,6 @@ def home():
 # 2. MENU ROUTE (Yahan aapka menu load hoga)
 @app.route('/menu')
 def menu():
-   @app.route('/menu')
-def menu():
-@app.route('/menu')
-def menu():
     # Purana 3 items wala code hata kar ye 10 items wala daalye
     food_items = [
         {"_id": "1", "name": "Special Chicken Biryani", "price": 250, "description": "Slow-cooked aromatic rice with tender chicken spices.", "image_url": "/static/01.jpg", "stripe_url": "#"},
