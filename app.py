@@ -26,38 +26,41 @@ def home():
 # 2. MENU ROUTE (Yahan aapka menu load hoga)
 @app.route('/menu')
 def menu():
-    # Ye sample data hai jo menu.html ke {% for %} loop mein jayega
+   @app.route('/menu')
+def menu():
+@app.route('/menu')
+def menu():
+    # Purana 3 items wala code hata kar ye 10 items wala daalye
     food_items = [
-        {
-            "_id": "1", 
-            "name": "Special Chicken Biryani", 
-            "price": 250, 
-            "description": "Slow-cooked aromatic rice with tender chicken spices.", 
-            "image_url": "/static/01.jpg",
-            "stripe_url": "#"
-        },
-        {
-            "_id": "2", 
-            "name": "Veg Hyderabadi Biryani", 
-            "price": 180, 
-            "description": "Fresh vegetables mixed with basmati rice and saffron.", 
-            "image_url": "/static/06.jpg",
-            "stripe_url": "#"
-        },
-        {
-            "_id": "3", 
-            "name": "Paneer Tikka Biryani", 
-            "price": 220, 
-            "description": "Grilled paneer cubes layered with spicy biryani rice.", 
-            "image_url": "/static/02.jpg",
-            "stripe_url": "#"
-        }
+        {"_id": "1", "name": "Special Chicken Biryani", "price": 250, "description": "Slow-cooked aromatic rice with tender chicken spices.", "image_url": "/static/01.jpg", "stripe_url": "#"},
+        {"_id": "2", "name": "Veg Hyderabadi Biryani", "price": 180, "description": "Fresh vegetables mixed with basmati rice and saffron.", "image_url": "/static/06.jpg", "stripe_url": "#"},
+        {"_id": "3", "name": "Paneer Tikka Biryani", "price": 220, "description": "Grilled paneer cubes layered with spicy biryani rice.", "image_url": "/static/02.jpg", "stripe_url": "#"},
+        {"_id": "4", "name": "Mutton Dum Biryani", "price": 350, "description": "Rich flavors of mutton with long grain basmati rice.", "image_url": "/static/03.jpg", "stripe_url": "#"},
+        {"_id": "5", "name": "Chicken Lollipop", "price": 200, "description": "Deep fried chicken appetizers with schezwan sauce.", "image_url": "/static/04.jpg", "stripe_url": "#"},
+        {"_id": "6", "name": "Egg Biryani", "price": 160, "description": "Spiced eggs served with fragrant biryani rice.", "image_url": "/static/05.jpg", "stripe_url": "#"},
+        {"_id": "7", "name": "Prawns Biryani", "price": 300, "description": "Delicious prawns cooked in traditional masala style.", "image_url": "/static/07.jpg", "stripe_url": "#"},
+        {"_id": "8", "name": "Butter Chicken", "price": 280, "description": "Creamy tomato gravy with grilled chicken pieces.", "image_url": "/static/08.jpg", "stripe_url": "#"},
+        {"_id": "9", "name": "Dal Tadka", "price": 140, "description": "Yellow lentils tempered with ghee and spices.", "image_url": "/static/09.jpg", "stripe_url": "#"},
+        {"_id": "10", "name": "Gulab Jamun", "price": 60, "description": "Sweet dessert balls soaked in sugar syrup.", "image_url": "/static/10.jpg", "stripe_url": "#"}
     ]
-    return render_template('menu.html', food_items=food_items)
+    return render_template('menu.html', food_items=food_items)    
 
 # 3. OTHER ROUTES
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        user_name = request.form.get('username')
+        pass_word = request.form.get('password')
+        
+        # Abhi ke liye hum simple check kar rahe hain
+        user = User.query.filter_by(username=user_name).first()
+        if user and user.password == pass_word:
+            session['user'] = user_name
+            flash('Login Successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid Credentials', 'danger')
+            
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
