@@ -81,7 +81,7 @@ def contact():
         # Abhi ke liye hum sirf ek message dikhayenge
         flash(f"Thank you {name}, your feedback has been received!", "success")
         return redirect(url_for('contact'))
-    return render_template('contact.html')
+
 
 # --- SABSE NICHE SIRF EK BAAR APP.RUN RAKHEIN ---
 if __name__ == '__main__':
