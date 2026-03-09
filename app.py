@@ -71,19 +71,18 @@ def dashboard():
 def blog():
     return render_template('blog.html')
 
-
-    @app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        # Yahan feedback submit hone ke baad ka logic aayega
         name = request.form.get('name')
-        message = request.form.get('message')
-        # Abhi ke liye hum sirf ek message dikhayenge
-        flash(f"Thank you {name}, your feedback has been received!", "success")
+        flash(f"Thank you {name}, feedback received!", "success")
         return redirect(url_for('contact'))
+    return render_template('contact.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
-# --- SABSE NICHE SIRF EK BAAR APP.RUN RAKHEIN ---
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
