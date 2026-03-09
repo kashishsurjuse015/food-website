@@ -17,14 +17,12 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
-# 1. HOME ROUTE
+# --- ROUTES START ---
+
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('index.html')
-
-# 2. MENU ROUTE (Yahan aapka menu load hoga)
-# --- Ye portion app.py mein niche paste karein ---
 
 @app.route('/menu')
 def menu():
@@ -34,11 +32,12 @@ def menu():
         {"_id": "3", "name": "Paneer Tikka Biryani", "price": 220, "description": "Grilled paneer cubes layered with spicy biryani rice.", "image_url": "/static/02.jpg", "stripe_url": "#"},
         {"_id": "4", "name": "Mutton Dum Biryani", "price": 350, "description": "Rich flavors of mutton with long grain basmati rice.", "image_url": "/static/03.jpg", "stripe_url": "#"},
         {"_id": "5", "name": "Chicken Lollipop", "price": 200, "description": "Deep fried chicken appetizers with sauce.", "image_url": "/static/04.jpg", "stripe_url": "#"},
-        {"_id": "6", "name": "Egg Biryani", "price": 160, "description": "Spiced eggs served with fragrant rice.", "image_url": "/static/05.jpg", "stripe_url": "#"},
-        {"_id": "7", "name": "Prawns Biryani", "price": 300, "description": "Delicious prawns cooked in masala style.", "image_url": "/static/07.jpg", "stripe_url": "#"},
-        {"_id": "8", "name": "Butter Chicken", "price": 280, "description": "Creamy tomato gravy with chicken pieces.", "image_url": "/static/08.jpg", "stripe_url": "#"},
         {"_id": "9", "name": "Dal Tadka", "price": 140, "description": "Yellow lentils tempered with ghee.", "image_url": "/static/09.jpg", "stripe_url": "#"},
-        {"_id": "10", "name": "Gulab Jamun", "price": 60, "description": "Sweet dessert balls in sugar syrup.", "image_url": "/static/10.jpg", "stripe_url": "#"}
+        {"_id": "10", "name": "Gulab Jamun", "price": 60, "description": "Sweet dessert balls in sugar syrup.", "image_url": "/static/10.jpg", "stripe_url": "#"},
+        # --- Chinese Dishes Added ---
+        {"_id": "11", "name": "Veg Manchurian", "price": 150, "description": "Spicy vegetable balls in Chinese gravy.", "image_url": "/static/11.jpg", "stripe_url": "#"},
+        {"_id": "12", "name": "Veg Hakka Noodles", "price": 120, "description": "Stir-fried noodles with crunchy vegetables.", "image_url": "/static/12.jpg", "stripe_url": "#"},
+        {"_id": "13", "name": "Paneer Chilli", "price": 180, "description": "Crispy paneer tossed in soya and chilli sauce.", "image_url": "/static/13.jpg", "stripe_url": "#"}
     ]
     return render_template('menu.html', food_items=food_items)
 
@@ -46,19 +45,11 @@ def menu():
 def cart():
     return render_template('cart.html')
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
-
-# 3. OTHER ROUTES
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user_name = request.form.get('username')
         pass_word = request.form.get('password')
-        
-        # Abhi ke liye hum simple check kar rahe hain
         user = User.query.filter_by(username=user_name).first()
         if user and user.password == pass_word:
             session['user'] = user_name
@@ -66,7 +57,6 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             flash('Invalid Credentials', 'danger')
-            
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -85,12 +75,8 @@ def blog():
 def contact():
     return render_template('contact.html')
 
-@app.route('/cart')
-def cart():
-    return render_template('cart.html') # Agar cart page hai toh
-
+# --- SABSE NICHE SIRF EK BAAR APP.RUN RAKHEIN ---
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all() # Database table banane ke liye
+        db.create_all()
     app.run(debug=True)
-  
