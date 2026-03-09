@@ -11,13 +11,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# User Model
+# User Model for Login/Register
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
-# --- ALL ROUTES ---
+# --- ROUTES START ---
 
 @app.route('/')
 @app.route('/home')
@@ -26,16 +26,23 @@ def home():
 
 @app.route('/menu')
 def menu():
+    # 1 se 15 tak ki saari dishes yahan hain
     food_items = [
         {"_id": "1", "name": "Special Chicken Biryani", "price": 250, "description": "Slow-cooked aromatic rice.", "image_url": "/static/briyani.jpg", "stripe_url": "#"},
         {"_id": "2", "name": "Veg Hyderabadi Biryani", "price": 180, "description": "Fresh vegetables and saffron.", "image_url": "/static/06.jpg", "stripe_url": "#"},
-        {"_id": "3", "name": "Paneer Tikka Biryani", "price": 220, "description": "Grilled paneer with spicy rice.", "image_url": "/static/02.jpg", "stripe_url": "#"},
-        {"_id": "4", "name": "Mutton Dum Biryani", "price": 350, "description": "Rich flavors of mutton.", "image_url": "/static/03.jpg", "stripe_url": "#"},
+        {"_id": "3", "name": "Paneer Tikka Biryani", "price": 220, "description": "Grilled paneer cubes with spicy rice.", "image_url": "/static/02.jpg", "stripe_url": "#"},
+        {"_id": "4", "name": "Mutton Dum Biryani", "price": 350, "description": "Rich flavors of mutton with long grain rice.", "image_url": "/static/03.jpg", "stripe_url": "#"},
         {"_id": "5", "name": "Chicken Lollipop", "price": 200, "description": "Deep fried chicken appetizers.", "image_url": "/static/04.jpg", "stripe_url": "#"},
+        {"_id": "6", "name": "Special Sandwich", "price": 100, "description": "Grilled sandwich with veggies.", "image_url": "/static/Sandwich.jpeg", "stripe_url": "#"},
+        {"_id": "7", "name": "Spaghetti Pasta", "price": 160, "description": "Italian style pasta with sauce.", "image_url": "/static/Spaghetti.jpeg", "stripe_url": "#"},
+        {"_id": "8", "name": "Chicken Burger", "price": 130, "description": "Crispy chicken patty burger.", "image_url": "/static/burger.jpg", "stripe_url": "#"},
         {"_id": "9", "name": "Dal Tadka", "price": 140, "description": "Yellow lentils tempered with ghee.", "image_url": "/static/09.jpg", "stripe_url": "#"},
-        {"_id": "11", "name": "Veg Manchurian", "price": 150, "description": "Spicy vegetable balls.", "image_url": "/static/11.jpg", "stripe_url": "#"},
-        {"_id": "12", "name": "Veg Hakka Noodles", "price": 120, "description": "Stir-fried noodles.", "image_url": "/static/Spaghetti.jpeg", "stripe_url": "#"},
-        {"_id": "13", "name": "Paneer Chilli", "price": 180, "description": "Crispy paneer in soya sauce.", "image_url": "/static/13.jpg", "stripe_url": "#"}
+        {"_id": "10", "name": "Gulab Jamun", "price": 60, "description": "Sweet dessert balls in syrup.", "image_url": "/static/10.jpg", "stripe_url": "#"},
+        {"_id": "11", "name": "Veg Manchurian", "price": 150, "description": "Spicy vegetable balls in gravy.", "image_url": "/static/11.jpg", "stripe_url": "#"},
+        {"_id": "12", "name": "Veg Hakka Noodles", "price": 120, "description": "Stir-fried Chinese noodles.", "image_url": "/static/12.jpg", "stripe_url": "#"},
+        {"_id": "13", "name": "Paneer Chilli", "price": 180, "description": "Crispy paneer tossed in soya sauce.", "image_url": "/static/13.jpg", "stripe_url": "#"},
+        {"_id": "14", "name": "Veg Fried Rice", "price": 110, "description": "Rice tossed with fresh vegetables.", "image_url": "/static/14.jpg", "stripe_url": "#"},
+        {"_id": "15", "name": "Chicken Tikka", "price": 240, "description": "Grilled chicken chunks with spices.", "image_url": "/static/15.jpg", "stripe_url": "#"}
     ]
     return render_template('menu.html', food_items=food_items)
 
@@ -58,6 +65,7 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    # Yahan registration logic add kar sakte hain
     return render_template('register.html')
 
 @app.route('/dashboard')
