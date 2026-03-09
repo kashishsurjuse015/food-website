@@ -17,9 +17,9 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
-# --- ROUTES START ---
+# --- ALL ROUTES ---
 
-
+@app.route('/')
 @app.route('/home')
 def home():
     return render_template('index.html')
@@ -27,17 +27,15 @@ def home():
 @app.route('/menu')
 def menu():
     food_items = [
-        {"_id": "1", "name": "Special Chicken Biryani", "price": 250, "description": "Slow-cooked aromatic rice with tender chicken spices.", "image_url": "/static/01.jpg", "stripe_url": "#"},
-        {"_id": "2", "name": "Veg Hyderabadi Biryani", "price": 180, "description": "Fresh vegetables mixed with basmati rice and saffron.", "image_url": "/static/06.jpg", "stripe_url": "#"},
-        {"_id": "3", "name": "Paneer Tikka Biryani", "price": 220, "description": "Grilled paneer cubes layered with spicy biryani rice.", "image_url": "/static/02.jpg", "stripe_url": "#"},
-        {"_id": "4", "name": "Mutton Dum Biryani", "price": 350, "description": "Rich flavors of mutton with long grain basmati rice.", "image_url": "/static/03.jpg", "stripe_url": "#"},
-        {"_id": "5", "name": "Chicken Lollipop", "price": 200, "description": "Deep fried chicken appetizers with sauce.", "image_url": "/static/04.jpg", "stripe_url": "#"},
+        {"_id": "1", "name": "Special Chicken Biryani", "price": 250, "description": "Slow-cooked aromatic rice.", "image_url": "/static/briyani.jpg", "stripe_url": "#"},
+        {"_id": "2", "name": "Veg Hyderabadi Biryani", "price": 180, "description": "Fresh vegetables and saffron.", "image_url": "/static/06.jpg", "stripe_url": "#"},
+        {"_id": "3", "name": "Paneer Tikka Biryani", "price": 220, "description": "Grilled paneer with spicy rice.", "image_url": "/static/02.jpg", "stripe_url": "#"},
+        {"_id": "4", "name": "Mutton Dum Biryani", "price": 350, "description": "Rich flavors of mutton.", "image_url": "/static/03.jpg", "stripe_url": "#"},
+        {"_id": "5", "name": "Chicken Lollipop", "price": 200, "description": "Deep fried chicken appetizers.", "image_url": "/static/04.jpg", "stripe_url": "#"},
         {"_id": "9", "name": "Dal Tadka", "price": 140, "description": "Yellow lentils tempered with ghee.", "image_url": "/static/09.jpg", "stripe_url": "#"},
-        {"_id": "10", "name": "Gulab Jamun", "price": 60, "description": "Sweet dessert balls in sugar syrup.", "image_url": "/static/10.jpg", "stripe_url": "#"},
-        # --- Chinese Dishes Added ---
-        {"_id": "11", "name": "Veg Manchurian", "price": 150, "description": "Spicy vegetable balls in Chinese gravy.", "image_url": "/static/11.jpg", "stripe_url": "#"},
-        {"_id": "12", "name": "Veg Hakka Noodles", "price": 120, "description": "Stir-fried noodles with crunchy vegetables.", "image_url": "/static/12.jpg", "stripe_url": "#"},
-        {"_id": "13", "name": "Paneer Chilli", "price": 180, "description": "Crispy paneer tossed in soya and chilli sauce.", "image_url": "/static/13.jpg", "stripe_url": "#"}
+        {"_id": "11", "name": "Veg Manchurian", "price": 150, "description": "Spicy vegetable balls.", "image_url": "/static/11.jpg", "stripe_url": "#"},
+        {"_id": "12", "name": "Veg Hakka Noodles", "price": 120, "description": "Stir-fried noodles.", "image_url": "/static/Spaghetti.jpeg", "stripe_url": "#"},
+        {"_id": "13", "name": "Paneer Chilli", "price": 180, "description": "Crispy paneer in soya sauce.", "image_url": "/static/13.jpg", "stripe_url": "#"}
     ]
     return render_template('menu.html', food_items=food_items)
 
@@ -55,8 +53,7 @@ def login():
             session['user'] = user_name
             flash('Login Successful!', 'success')
             return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid Credentials', 'danger')
+        flash('Invalid Credentials', 'danger')
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -79,10 +76,7 @@ def contact():
         return redirect(url_for('contact'))
     return render_template('contact.html')
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
+# --- DB INITIALIZATION & RUN ---
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
