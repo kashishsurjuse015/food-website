@@ -19,7 +19,7 @@ class User(db.Model):
 
 # --- ROUTES START ---
 
-@app.route('/')
+
 @app.route('/home')
 def home():
     return render_template('index.html')
