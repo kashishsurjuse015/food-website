@@ -75,11 +75,11 @@ def dashboard():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        # Form se data lene ke liye
         name = request.form.get('name')
+        email = request.form.get('email')
         message = request.form.get('message')
         print(f"Message from {name}: {message}")
-        return "Dhanyawad! We have received your message."
+        return render_template('thanks.html', name=name)
     return render_template('contact.html')
 
 # --- DB INITIALIZATION & RUN ---
