@@ -72,21 +72,14 @@ def register():
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/blog')
-def blog():
-    return render_template('blog.html')
-
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
+        # Form se data lene ke liye
         name = request.form.get('name')
-        email = request.form.get('email')
         message = request.form.get('message')
-        
-        # Yahan aap data ko database mein save kar sakte hain
-        print(f"New Message from {name}: {message}") 
-        
-        return "Thank you for contacting us!"
+        print(f"Message from {name}: {message}")
+        return "Dhanyawad! We have received your message."
     return render_template('contact.html')
 
 # --- DB INITIALIZATION & RUN ---
