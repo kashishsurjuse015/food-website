@@ -80,8 +80,13 @@ def blog():
 def contact():
     if request.method == 'POST':
         name = request.form.get('name')
-        flash(f"Thank you {name}, feedback received!", "success")
-        return redirect(url_for('contact'))
+        email = request.form.get('email')
+        message = request.form.get('message')
+        
+        # Yahan aap data ko database mein save kar sakte hain
+        print(f"New Message from {name}: {message}") 
+        
+        return "Thank you for contacting us!"
     return render_template('contact.html')
 
 # --- DB INITIALIZATION & RUN ---
