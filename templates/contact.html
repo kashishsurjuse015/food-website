@@ -1,6 +1,27 @@
-<form action="/contact" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message"></textarea>
-    <button type="submit">Send Message</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us - Indian Food Paradise</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #fff5e6; text-align: center; }
+        .contact-container { background: white; width: 50%; margin: 50px auto; padding: 30px; border-radius: 15px; box-shadow: 0px 0px 15px rgba(0,0,0,0.1); }
+        h2 { color: #d32f2f; }
+        input, textarea { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { background-color: #ff9800; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #e68a00; }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h2>Get in Touch with Us</h2>
+        <p>Swagat hai! Any questions about our Indian menu? Message us below.</p>
+        <form action="/contact" method="POST">
+            <input type="text" name="name" placeholder="Aapka Naam" required>
+            <input type="email" name="email" placeholder="Aapki Email" required>
+            <textarea name="message" rows="5" placeholder="Aapka Message ya Feedback" required></textarea>
+            <br>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</body>
+</html>
